@@ -1,0 +1,12 @@
+.card-container{
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 120px;
+  box-shadow: 0 0 15px #ddd;
+
+  .card__content{
+    width: 480px
+  }
+}
