@@ -1,6 +1,22 @@
 .questions {
   font-size: 30px;
 
+  .tool-bar{
+    display: flex;
+    align-content: center;
+    padding: 20px;
+    line-height: 60px;
+
+    .tool-bar__title{
+      flex: 0.7;
+    }
+    .tool-bar__btn-group{
+      flex: 0.3;
+      display: flex;
+      justify-content: space-around;
+      align-content: center;
+    }
+  }
   .card{
     padding: 30px 20px;
   }

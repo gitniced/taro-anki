@@ -5,6 +5,10 @@ import { ParserRichText, IconFont } from '@/components/index';
 import './index.scss';
 
 class Questions extends Component {
+  static options = {
+    addGlobalClass: true
+  }
+
   config: Config = {
     navigationBarTitleText: ''
   };
@@ -19,15 +23,22 @@ class Questions extends Component {
 
   componentDidHide() {}
 
+  btnClick = (type) => {
+    console.log(type);
+  }
+
   render() {
     return (
       <View className="questions">
         <View className="tool-bar">
-          <View>
+          <View className="tool-bar__title">
             标题
           </View>
-          <View className="btn-wrapper">
-            <IconFont className="icon-biaoji" />
+          <View className="tool-bar__btn-group">
+            <IconFont className="icon-huabi" onClick={this.btnClick.bind(null, 'huabi')}/>
+            <IconFont className="icon-houtui" onClick={this.btnClick.bind(null, 'houtui')}/>
+            <IconFont className="icon-biaoji" onClick={this.btnClick.bind(null, 'biaoji')}/>
+            <IconFont className="icon-gengduo" onClick={this.btnClick.bind(null, 'gengduo')}/>
           </View>
         </View>
         <View className="card">
