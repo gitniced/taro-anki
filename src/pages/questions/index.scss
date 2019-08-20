@@ -4,11 +4,27 @@
   .tool-bar{
     display: flex;
     align-content: center;
-    padding: 20px;
+    padding: 10px 20px;
     line-height: 60px;
+    background: #6190e8;
+    color: #fff;
 
     .tool-bar__title{
       flex: 0.7;
+      font-size: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      
+      view{
+        height: 35px;
+        line-height: 1;
+      }
+
+      .task-rest-time{
+        font-size: 26px;
+        line-height: 1.5;
+      }
     }
     .tool-bar__btn-group{
       flex: 0.3;
@@ -18,9 +34,14 @@
     }
   }
   .card{
-    padding: 30px 20px;
+    padding: 30px 20px 80px;
   }
   hr{
     margin: 15px;
+  }
+  .show-ans{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
 }
