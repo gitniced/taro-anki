@@ -1,4 +1,4 @@
-const path = require('path');
+import path from 'path';
 
 const config = {
   projectName: 'taro-anki',
@@ -14,6 +14,7 @@ const config = {
   alias: {
     '@/components': path.resolve(__dirname, '..', 'src/components'),
     '@/utils': path.resolve(__dirname, '..', 'src/utils'),
+    '@/api': path.resolve(__dirname, '..', 'src/api'),
   },
   plugins: {
     babel: {
