@@ -1,0 +1,13 @@
+.draw-container{
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  padding: 20px;
+
+  &.visible{
+    display: block
+  }
+}

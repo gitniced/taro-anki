@@ -1,44 +1,47 @@
-import { View } from '@tarojs/components';
-import Taro, { useEffect } from '@tarojs/taro';
+import Taro, { Component } from '@tarojs/taro';
 import { IconFont } from '@/components/index';
-
-type entryItem = {
-  src: string,
-  title?: string,
-}
+import { dictvoice } from '@/api/index.ts';
 
 type Props = {
-  src: string | Array<entryItem>;
-  title?: string,
-  auto?: boolean,
-  count?: number,
-  interval?: number,
-  className?: string,
-  model?: 'dictation' | 'follow'
+  content: string;
+  type: number;
+  auto: boolean;
+  onPlay?: () => void;
+  onStop?: () => void;
+  onEnded?: () => void;
 };
 
-export default function AudioPlay({src, title, auto = false, count, interval, model}: Props) {
-  const Audio = Taro.createInnerAudioContext();
-  useEffect(() => {
-    initAudio()
-  })
-  function initAudio(){
-    if(typeof src === 'string'){
-      Audio.src = src;
-      Audio.autoplay = auto;
+export default class Voice extends Component<Props> {
+  static defaultProps = {
+    type: 1,
+    auto: false
+  };
+  audio;
+  componentDidMount() {
+    this.init(this.props);
+  }
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.content !== this.props.content) {
+      this.init(nextProps);
     }
   }
-  function play(){
-    Audio.play();
+  init = (props: Props) => {
+    const { auto, type, content, onPlay, onStop, onEnded } = props;
+    const Audio = Taro.createInnerAudioContext();
+    Audio.src = dictvoice.getDictVoiceUrl(type, content);
+    Audio.autoplay = auto || false;
+    onPlay && Audio.onPlay(onPlay);
+    onStop && Audio.onStop(onStop);
+    onEnded && Audio.onEnded(onEnded);
+    this.audio = Audio;
+  };
+  play = () => {
+    this.audio.play();
+  };
+  stop = () => {
+    this.audio.stop();
+  };
+  render() {
+    return <IconFont className="icon-huabi" onClick={this.play} />;
   }
-  function pause(){
-    Audio.pause();
-  }
-  return <View className="external-class">
-    { title && <View>{title}</View> }
-    <IconFont className="icon-huabi" onClick={play}/>
-    { !model && <IconFont className="icon-huabi" onClick={pause}/> }
-  </View>
 }
-
-AudioPlay.externalClasses = ['external-class']
