@@ -1,9 +1,10 @@
 import { ComponentClass } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
-import { ParserRichText, IconFont, RestTime, AudioPlay, DrawBoard } from '@/components/index';
+import { ParserRichText, IconFont, RestTime, AudioPlay } from '@/components/index';
 import './index.scss';
 import WordList, { Column } from '@/components/WordList';
+import DrawBoard from '@/components/DrawBoard';
 
 class Questions extends Component {
   static options = {
@@ -14,7 +15,8 @@ class Questions extends Component {
     navigationBarTitleText: ''
   };
   state={
-    visible: false
+    visible: false,
+    clear: false
   }
   componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps, this.$router.params.id);
@@ -27,13 +29,20 @@ class Questions extends Component {
   componentDidHide() {}
 
   btnClick = type => {
+    const { clear } = this.state;
     if(type === 'huabi'){
-      this.setState({ visible: true })
+      if(clear){
+        this.setState({ visible: true, clear: false })
+        return 
+      }
+      this.setState({ visible: !this.state.visible })
+    }else if(type === 'houtui'){
+      this.setState({ clear: true })
     }
   };
 
   render() {
-    const { visible } = this.state;
+    const { visible, clear } = this.state;
     const dataSource = [{ content: 'chinese' }];
     const col = [
       {
@@ -72,7 +81,7 @@ class Questions extends Component {
             dataSource={dataSource}
             column={col}
           />
-          <DrawBoard visible={visible}/>
+          <DrawBoard visible={visible} clear={clear}/>
         </View>
         <View className="show-ans">
           <Button onClick={this.btnClick.bind(null, 'huabi')}>显示答案</Button>
