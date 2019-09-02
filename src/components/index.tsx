@@ -13,3 +13,5 @@ export { default as AudioPlay } from './AudioPlay';
 export { default as WordList } from './WordList';
 
 export { default as DrawBoard } from './DrawBoard';
+
+export { default as TomatoSchedule } from './TomatoSchedule';

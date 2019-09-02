@@ -1,7 +1,7 @@
 import { ComponentClass } from 'react';
 import Taro, { Component, Config } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
-import { ParserRichText, IconFont, RestTime, AudioPlay } from '@/components/index';
+import { ParserRichText, IconFont, RestTime, AudioPlay, TomatoSchedule } from '@/components/index';
 import './index.scss';
 import WordList, { Column } from '@/components/WordList';
 import DrawBoard from '@/components/DrawBoard';
@@ -16,7 +16,8 @@ class Questions extends Component {
   };
   state={
     visible: false,
-    clear: false
+    clear: false,
+    status: 0
   }
   componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps, this.$router.params.id);
@@ -42,7 +43,7 @@ class Questions extends Component {
   };
 
   render() {
-    const { visible, clear } = this.state;
+    const { visible, clear, status } = this.state;
     const dataSource = [{ content: 'chinese' }];
     const col = [
       {
@@ -73,10 +74,12 @@ class Questions extends Component {
           </View>
         </View>
         <View className="card">
-          {['name','text', 'test'].map((item, index) => {
+          {/* {['name','text', 'test'].map((item, index) => {
             return <AudioPlay key={item} auto content={item}/>
           })
-          }
+          } */}
+          <TomatoSchedule status={status} interval={1*60} restCallback={() => {console.log('shi ga n do')}}/>
+          <View onClick={() => {this.setState({status: status ? 0 : 1})}}>{status? '暂停': '开始'}</View>
           <WordList
             dataSource={dataSource}
             column={col}
